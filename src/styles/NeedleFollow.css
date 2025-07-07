@@ -1,0 +1,11 @@
+.needle-follow {
+  position: fixed;
+  width: 40px;
+  z-index: 50;
+  pointer-events: none;
+  transition: transform 0.1s linear;
+}
+.needle-follow {
+  transition: top 0.1s ease-out, left 0.1s ease-out;
+}
+

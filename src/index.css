@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+html {
+  scroll-behavior: smooth;
+}
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-float-delay {
+  animation: float 5s ease-in-out infinite;
+}
+/* src/FloatingTailorIcons.css */
+.floating-icon {
+  position: absolute;
+  animation: floatY 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes floatY {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.needle-follow {
+  position: absolute;
+  width: 40px;
+  height: auto;
+  pointer-events: none;
+  transition: transform 0.1s linear;
+  z-index: 50;
+}
+html {
+  scroll-behavior: smooth;
+}
+.floating-icon {
+  position: absolute;
+  animation: floatUpDown 4s ease-in-out infinite alternate, spinSlow 20s linear infinite;
+}
+
+@keyframes floatUpDown {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-20px); }
+}
+
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
