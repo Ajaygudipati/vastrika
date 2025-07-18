@@ -3,6 +3,8 @@ import "../styles/NeedleFollow.css";
 import needleImg from "../needle.png"; // Make sure this is in `src/needle.png`
 import "../styles/FloatingTailorIconsLogin.css";
 import { useNavigate } from "react-router-dom"; // ✅ imported for navigation
+import { Slab } from "react-spinners-loaders"; // ✅ Importing Slab loader
+
 
 const LoginHeader = () => {
   return (
@@ -23,6 +25,8 @@ const LoginPage = () => {
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [needlePosition, setNeedlePosition] = useState({ x: 0, y: 0 });
+  const [loading, setLoading] = useState(true);
+  
 
   const navigate = useNavigate(); // ✅ useNavigate hook
 
@@ -67,6 +71,7 @@ const LoginPage = () => {
       setSuccessMsg("");
     }
   };
+  
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -76,6 +81,19 @@ const LoginPage = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  useEffect(() => {
+  const timer = setTimeout(() => setLoading(false), 1200); // 1.2s delay
+  return () => clearTimeout(timer);
+}, []);
+  
+if (loading) {
+  return (
+    <div className="flex items-center justify-center h-screen bg-white">
+      <Slab color={["#000000", "#000000", "#000000", "#000000"]} />
+    </div>
+  );
+}
 
   return (
     <div className="min-h-screen flex font-montserrat">
