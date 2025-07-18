@@ -285,45 +285,57 @@ useEffect(() => {
         </section>
 
         {/* Booking Section */}
-        <section id="book" data-aos="fade-up" className="bg-white py-20 px-6 md:px-12">
-          <div className="max-w-3xl mx-auto bg-slate-100 p-10 rounded-3xl shadow-md">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Book a Stitching Request</h2>
-            <form className="grid grid-cols-1 gap-6">
-              <input type="text" placeholder="Full Name" className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700" />
-              <input type="tel" placeholder="Phone Number" className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700" />
-              <select className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700">
-                <option>Blouse Stitching</option>
-                <option>Long Frock</option>
-                <option>Skirt</option>
-                <option>Alteration</option>
-                <option>Others</option>
-              </select>
-              <input
-                type="url"
-                placeholder="Paste reference link (Instagram/Pinterest)"
-                className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700"
-              />
+        {user ? (
+  // 👇 Show Full Booking Form if user is logged in
+  <section id="book" data-aos="fade-up" className="bg-white py-20 px-6 md:px-12">
+    <div className="max-w-3xl mx-auto bg-slate-100 p-10 rounded-3xl shadow-md">
+      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Book a Stitching Request</h2>
+      <form className="grid grid-cols-1 gap-6">
+        <input type="text" placeholder="Full Name" className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700" />
+        <input type="tel" placeholder="Phone Number" className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700" />
+        <select className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700">
+          <option>Blouse Stitching</option>
+          <option>Long Frock</option>
+          <option>Skirt</option>
+          <option>Alteration</option>
+          <option>Others</option>
+        </select>
+        <input
+          type="url"
+          placeholder="Paste reference link (Instagram/Pinterest)"
+          className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700"
+        />
+        <label className="block">
+          <span className="text-gray-700 font-medium mb-1 block">Upload Reference Image</span>
+          <input
+            type="file"
+            accept="image/*"
+            className="mt-1 block w-full text-sm text-gray-700
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-lg file:border-0
+              file:text-sm file:font-semibold
+              file:bg-gray-800 file:text-white
+              hover:file:bg-gray-900
+              cursor-pointer"
+          />
+        </label>
+        <textarea rows="4" placeholder="Mention color, style, inspirations..." className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700"></textarea>
+        <button type="submit" className="bg-gray-800 text-white font-semibold py-3 px-6 rounded-xl hover:bg-gray-900 transition-all">Submit Request</button>
+      </form>
+    </div>
+  </section>
+) : (
+  // 👇 If not logged in, show button to login
+  <section id="book" data-aos="fade-up" className="bg-white py-20 px-6 md:px-12 text-center">
+    <h2 className="text-3xl font-bold text-gray-800 mb-6">Want to Book a Stitch?</h2>
+    <Link to="/login">
+      <button className="bg-gray-800 text-white font-semibold py-3 px-8 rounded-xl hover:bg-gray-900 transition-all">
+        Login to Book
+      </button>
+    </Link>
+  </section>
+)}
 
-              {/* File Upload */}
-              <label className="block">
-                <span className="text-gray-700 font-medium mb-1 block">Upload Reference Image</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="mt-1 block w-full text-sm text-gray-700
-                    file:mr-4 file:py-2 file:px-4
-                    file:rounded-lg file:border-0
-                    file:text-sm file:font-semibold
-                    file:bg-gray-800 file:text-white
-                    hover:file:bg-gray-900
-                    cursor-pointer"
-                />
-              </label>
-              <textarea rows="4" placeholder="Mention color, style, inspirations..." className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700"></textarea>
-              <button type="submit" className="bg-gray-800 text-white font-semibold py-3 px-6 rounded-xl hover:bg-gray-900 transition-all">Submit Request</button>
-            </form>
-          </div>
-        </section>
 
         {/* WhatsApp Button */}
         <a
