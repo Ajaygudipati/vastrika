@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/api/auth', authRoutes);
 // Import Order Routes
 const orderRoutes = require('./routes/orderRoutes');
-app.use('/api/orders', orderRoutes);
+app.use('/api/orders', orderRoutes);  
 
 
 app.get('/', (req, res) => {
