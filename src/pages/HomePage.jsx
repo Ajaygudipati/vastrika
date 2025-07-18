@@ -4,10 +4,18 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "../FloatingTailorIcons.css"; // adjust path if needed
 import '../styles/CustomScrollbar.css';
-
+import { useAuth } from "../context/AuthContext";
 
 
 function HomePage() {
+  const [user, setUser] = useState(null);
+
+useEffect(() => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  if (storedUser) {
+    setUser(storedUser);
+  }
+}, []);
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   useEffect(() => {
@@ -51,25 +59,42 @@ function HomePage() {
               <a href="#footer" className="hover:text-pink-600 font-bold transition">Contact</a>
 
   
-<div className="relative inline-block">
-  <span
-    className="text-gray-700 font-bold cursor-pointer hover:text-pink-600 transition"
-    onClick={() => setIsOpen(!isOpen)}
-  >
-    Profile
-  </span>
+{user ? (
+  <div className="relative inline-block">
+    <span
+      className="text-gray-700 font-bold cursor-pointer hover:text-pink-600 transition"
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      {user.name}
+    </span>
 
-  {isOpen && (
-    <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md z-50">
-      <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">
-        View Profile
-      </a>
-      <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-        Logout
-      </button>
-    </div>
-  )}
-</div>
+    {isOpen && (
+      <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md z-50">
+        <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">
+          View Profile
+        </a>
+        <button
+          onClick={() => {
+            localStorage.removeItem("user");
+            setUser(null);
+            window.location.reload();
+          }}
+          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+        >
+          Logout
+        </button>
+      </div>
+    )}
+  </div>
+) : (
+  <a
+    href="/login"
+    className="bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
+  >
+    Login
+  </a>
+)}
+
 
 </nav>
         </div>
