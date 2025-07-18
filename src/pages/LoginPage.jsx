@@ -3,7 +3,8 @@ import "../styles/NeedleFollow.css";
 import needleImg from "../needle.png"; // Make sure this is in `src/needle.png`
 import "../styles/FloatingTailorIconsLogin.css";
 import { useNavigate } from "react-router-dom"; // ✅ imported for navigation
-import { Slab } from "react-spinners-loaders"; // ✅ Importing Slab loader
+import { Slab } from "react-loading-indicators"; // ✅ Importing Slab loader
+
 
 
 const LoginHeader = () => {
@@ -26,21 +27,28 @@ const LoginPage = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [needlePosition, setNeedlePosition] = useState({ x: 0, y: 0 });
   const [loading, setLoading] = useState(true);
-  
+  const [loginLoading, setLoginLoading] = useState(false);
 
+  
   const navigate = useNavigate(); // ✅ useNavigate hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     setErrorMsg("");
+     setSuccessMsg("");
+     setLoginLoading(true);
 
     if (!email || !password) {
       setErrorMsg("Please enter both email and password.");
       setSuccessMsg('');
+      setLoginLoading(false);
       return;
     }
+    
 
     try {
       const response = await fetch("https://vastrika-backend-u8kd.onrender.com/api/auth/login", {
+        
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,29 +56,33 @@ const LoginPage = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      let data;
+    try {
+      data = await response.json();
+    } catch (jsonError) {
+      data = { message: "Invalid server response." };
+    }
+
+    if (response.ok) {
+      setSuccessMsg("Login successful!");
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
-
-      if (response.ok) {
-        setSuccessMsg("Login successful!");
-        setErrorMsg("");
-        localStorage.setItem("token", data.token);
-
-        // ✅ React Router SPA Navigation
-        setTimeout(() => {
-          navigate("/homepage"); 
-        }, 1000); // optional short delay for smooth UX
-      } else {
-        setErrorMsg(data.message || "Login failed");
-        setSuccessMsg("");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      setErrorMsg("An error occurred while logging in.");
-      setSuccessMsg("");
+      
+      setTimeout(() => {
+        setLoginLoading(false);
+        navigate("/homepage");
+      }, 1000);
+    } else {
+      setErrorMsg(data.message || "Login failed.");
+       setSuccessMsg("");
+      setLoginLoading(false); // ✅ stop loading if error
     }
-  };
+  } catch (error) {
+    console.error("Login error:", error);
+    setErrorMsg("Something went wrong. Please try again.");
+    setLoginLoading(false); // ✅ stop loading if error
+  }
+};
   
 
   useEffect(() => {
@@ -79,22 +91,20 @@ const LoginPage = () => {
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      clearTimeout(timer);
+    };
   }, []);
-
-  useEffect(() => {
-  const timer = setTimeout(() => setLoading(false), 1200); // 1.2s delay
-  return () => clearTimeout(timer);
-}, []);
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Slab size={50} color="#4A5568" />
+      </div>
+    );
+  }
   
-if (loading) {
-  return (
-    <div className="flex items-center justify-center h-screen bg-white">
-      <Slab color={["#000000", "#000000", "#000000", "#000000"]} />
-    </div>
-  );
-}
-
   return (
     <div className="min-h-screen flex font-montserrat">
       {/* 🧵 Header */}
@@ -128,43 +138,50 @@ if (loading) {
             className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-gray-800"
           />
           <div className="relative w-full mb-4">
-  <input
-    type={showPassword ? 'text' : 'password'}
-    placeholder="Password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)} 
-    className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-gray-800"
-  />
-  <button
-    type="button"
-    onClick={() => setShowPassword(!showPassword)}
-    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black"
-  >
-    {showPassword ? (
-      // Eye Open (Password Visible)
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-      </svg>
-    ) : (
-      // Eye Closed (Password Hidden)
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9.27-3.11-11-7.5A11.94 11.94 0 015.632 5.087M15 12a3 3 0 11-6 0 3 3 0 016 0zm6.032-1.263A11.94 11.94 0 0018.368 5.08M19.385 19.385L4.615 4.615" />
-      </svg>
-    )}
-  </button>
-</div>
-
-
-
-
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} 
+              className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-gray-800"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black"
+            >
+              {showPassword ? (
+                // Eye Open (Password Visible)
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              ) : (
+                // Eye Closed (Password Hidden)
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9.27-3.11-11-7.5A11.94 11.94 0 015.632 5.087M15 12a3 3 0 11-6 0 3 3 0 016 0zm6.032-1.263A11.94 11.94 0 0018.368 5.08M19.385 19.385L4.615 4.615" />
+                </svg>
+              )}
+            </button>
+          </div>
           <button
-            type="submit"
-            className="w-full bg-gray-800 text-white font-semibold py-3 rounded-xl hover:bg-gray-900 transition-all"
-          >
-            Login
-          </button>
+  type="submit"
+  onClick={handleSubmit}
+  disabled={loginLoading}
+  className={`w-full px-4 py-2 rounded-lg text-white font-semibold ${
+    loginLoading ? "bg-gray-400 cursor-not-allowed" : "bg-black hover:bg-gray-900"
+  }`}
+>
+  {loginLoading ? "Logging in..." : "Login"}
+</button>
+
         </form>
+        {loginLoading && (
+          <div className="fixed inset-0 bg-white/80 z-50 flex items-center justify-center">
+            <Slab color="#000" size="medium" text="Logging in..." textColor="#000" />
+          </div>
+        )}
+
 
         {successMsg && (
           <div className="bg-green-100 text-green-700 p-3 mt-4 rounded-xl text-sm">

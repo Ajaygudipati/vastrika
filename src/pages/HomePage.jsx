@@ -11,11 +11,22 @@ function HomePage() {
   const [user, setUser] = useState(null);
 
 useEffect(() => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  if (storedUser) {
-    setUser(storedUser);
+  const storedUser = localStorage.getItem("user");
+
+  // Check that storedUser is not null, not the string "undefined", and valid JSON
+  if (storedUser && storedUser !== "undefined") {
+    try {
+      const user = JSON.parse(storedUser); // ✅ Safely parse
+      setUser(user); // ✅ Set the parsed object
+    } catch (err) {
+      console.error("Error parsing stored user from localStorage:", err);
+      setUser(null); // Optionally clear invalid user
+    }
+  } else {
+    setUser(null); // Nothing in localStorage or it's invalid
   }
 }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   useEffect(() => {
@@ -43,61 +54,105 @@ useEffect(() => {
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-50 text-gray-800 font-montserrat">
 
       {/* Header Navigation */}
-      <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+            <div className="relative max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                     <a
             href="#top"
             className="text-2xl font-bold text-gray-900 hover:text-pink-600 transition"
           >
             Vastrika
           </a>
-          <nav className="flex items-center space-x-6 text-sm text-gray-700 font-medium relative">
-              <a href="#about" className="hover:text-pink-600 font-bold transition">About Us</a>
-                <a href="#howitworks" className="hover:text-pink-600 font-bold transition">How It Works</a>
-              <a href="#services" className="hover:text-pink-600 font-bold transition">Services</a>
-              <a href="#book" className="hover:text-pink-600 font-bold transition">Book Now</a>
-              <a href="#footer" className="hover:text-pink-600 font-bold transition">Contact</a>
+          {/* Toggle button for small screens */}
+<div className="md:hidden">
+  <button
+    onClick={() => setShowDropdown(!showDropdown)}
+    className="text-gray-800 focus:outline-none"
+  >
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+</div>
 
-  
-{user ? (
-  <div className="relative inline-block">
-    <span
-      className="text-gray-700 font-bold cursor-pointer hover:text-pink-600 transition"
-      onClick={() => setIsOpen(!isOpen)}
+{/* Desktop Nav */}
+<nav className="hidden md:flex items-center space-x-6 text-sm text-gray-700 font-medium relative">
+  <a href="#about" className="hover:text-pink-600 font-bold transition">About Us</a>
+  <a href="#howitworks" className="hover:text-pink-600 font-bold transition">How It Works</a>
+  <a href="#services" className="hover:text-pink-600 font-bold transition">Services</a>
+  <a href="#book" className="hover:text-pink-600 font-bold transition">Book Now</a>
+  <a href="#footer" className="hover:text-pink-600 font-bold transition">Contact</a>
+
+  {user ? (
+    <div className="relative inline-block">
+      <span
+        className="text-gray-700 font-bold cursor-pointer hover:text-pink-600 transition"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {user.name}
+      </span>
+
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md z-50">
+          <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">
+            View Profile
+          </a>
+          <button
+            onClick={() => {
+              localStorage.removeItem("user");
+              setUser(null);
+              window.location.reload();
+            }}
+            className="w-full text-left px-4 py-2 hover:bg-gray-100"
+          >
+            Logout
+          </button>
+        </div>
+      )}
+    </div>
+  ) : (
+    <a
+      href="/login"
+      className="bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
     >
-      {user.name}
-    </span>
+      Login
+    </a>
+  )}
+</nav>
 
-    {isOpen && (
-      <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md z-50">
-        <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">
-          View Profile
-        </a>
+{/* Mobile Dropdown Nav - Visible only on small screens */}
+{showDropdown && (
+  <div className="md:hidden absolute right-4 top-full mt-2 bg-white shadow-lg rounded-lg p-4 z-50 space-y-2 text-sm">
+    <a href="#about" className="block hover:text-pink-600 font-semibold">About Us</a>
+    <a href="#howitworks" className="block hover:text-pink-600 font-semibold">How It Works</a>
+    <a href="#services" className="block hover:text-pink-600 font-semibold">Services</a>
+    <a href="#book" className="block hover:text-pink-600 font-semibold">Book Now</a>
+    <a href="#footer" className="block hover:text-pink-600 font-semibold">Contact</a>
+
+    {user ? (
+      <div className="space-y-1">
+        <a href="/profile" className="block hover:text-pink-600">View Profile</a>
         <button
           onClick={() => {
             localStorage.removeItem("user");
             setUser(null);
             window.location.reload();
           }}
-          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+          className="block w-full text-left hover:text-pink-600"
         >
           Logout
         </button>
       </div>
+    ) : (
+      <a
+        href="/login"
+        className="block bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
+      >
+        Login
+      </a>
     )}
   </div>
-) : (
-  <a
-    href="/login"
-    className="bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
-  >
-    Login
-  </a>
 )}
-
-
-</nav>
-        </div>
+                  </div>
       </header>
 
       <main className="pt-20">
@@ -106,7 +161,7 @@ useEffect(() => {
         {/* Hero Section */}
         <section
           data-aos="fade-down"
-          className="relative py-24 px-6 md:px-20 flex flex-col md:flex-row items-center justify-between overflow-hidden"
+          className="relative py-24 px-6 md:px-20 flex flex-col md:flex-row items-center justify-between overflow-hidden gap-8"
         >
           {/* Left Text */}
           <div className="max-w-xl z-10 text-center md:text-left">
@@ -125,57 +180,51 @@ useEffect(() => {
           </div>
 
           {/* Right Image */}
+{/* Right Image Section */}
 <div className="mt-12 md:mt-0 md:ml-10 z-10" data-aos="zoom-in">
-  {/* Right Main 3D Image with Floating Accessories */}
-  <div className="relative w-[300px] md:w-[420px] h-[420px]">
+  <div className="relative w-[280px] sm:w-[320px] md:w-[420px] h-[380px] sm:h-[420px]">
 
-{/* Floating Tailoring Icons */}
-<img
-  src="/Assets/scissors.png"
-  className="floating-icon absolute w-[85px]"
-  style={{ top: "-5%", left: "20%" }}
-  alt="Scissors"
-/>
-<img
-  src="/Assets/threads.png"
-  className="floating-icon absolute w-[85px]"
-  style={{ top: "25%", left: "70%" }}
-  alt="Thread Spool"
-/>
-<img
-  src="/Assets/tape.png"
-  className="floating-icon absolute w-[90px]"
-  style={{ top: "25%", left: "-30%" }}
-  alt="Measuring Tape"
-/>
-<img
-  src="/Assets/button.png"
-  className="floating-icon absolute w-[90px]"
-  style={{ top: "70%", left: "70%" }}
-  alt="Shirt Button"
-/>
-<img
-  src="/Assets/sewing.png"
-  className="floating-icon absolute w-[100px]"
-  style={{ top: "40%", left: "20%" }}
-  alt="Sewing Machine"
-/>
-<img
-  src="/Assets/dress.png"
-  className="floating-icon absolute w-[90px]"
-  style={{ top: "90%", left: "20%" }}
-  alt="Dress"
-/>
-<img
-  src="/Assets/bobbin.png"
-  className="floating-icon absolute w-[90px]"
-  style={{ top: "70%", left: "-30%" }}
-  alt="Bobbin"
-/>
+    {/* Floating Tailoring Icons */}
+    <img
+      src="/Assets/scissors.png"
+      className="floating-icon absolute w-[18%] top-[-5%] left-[50%]"
+      alt="Scissors"
+    />
+    <img
+      src="/Assets/threads.png"
+      className="floating-icon absolute w-[18%] top-[20%] left-[100%]"
+      alt="Thread Spool"
+    />
+    <img
+      src="/Assets/tape.png"
+      className="floating-icon absolute w-[20%] top-[25%] left-[-5%]"
+      alt="Measuring Tape"
+    />
+    <img
+      src="/Assets/button.png"
+      className="floating-icon absolute w-[18%] top-[65%] left-[98%]"
+      alt="Shirt Button"
+    />
+    <img
+      src="/Assets/sewing.png"
+      className="floating-icon absolute w-[20%] top-[40%] left-[50%]"
+      alt="Sewing Machine"
+    />
+    <img
+      src="/Assets/dress.png"
+      className="floating-icon absolute w-[20%] top-[85%] left-[50%]"
+      alt="Dress"
+    />
+    <img
+      src="/Assets/bobbin.png"
+      className="floating-icon absolute w-[18%] top-[68%] left-[-5%]"
+      alt="Bobbin"
+    />
+
+  </div>
+</div>
 
 
-        </div>
-          </div>
         </section>
 {/* About Us Section */}
 <section

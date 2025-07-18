@@ -4,6 +4,8 @@ import "../styles/NeedleFollow.css";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { Slab } from "react-loading-indicators"; // ✅ Importing Slab loader
+
 
 const SignupHeader = () => {
   return (
@@ -29,9 +31,7 @@ const SignupPage = () => {
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-
-
+  const [signupLoading, setSignupLoading] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -44,7 +44,6 @@ const SignupPage = () => {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-
   // Check if passwords match
   if (password !== confirmPassword) {
     setPasswordError("Passwords do not match");
@@ -52,6 +51,7 @@ const handleSubmit = async (e) => {
   }
 
   setPasswordError("");
+  setSignupLoading(true);
 
   try {
     const res = await fetch("https://vastrika-backend-u8kd.onrender.com/api/auth/signup", {
@@ -80,6 +80,9 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error("🔥 Server error:", error);
     alert("Server error. Please try again.");
+  }
+  finally {
+    setSignupLoading(false); // stop loading
   }
   console.log("📤 Sending to backend:", { name, email, phone, password });
 };
@@ -200,11 +203,19 @@ const handleSubmit = async (e) => {
             )}
 
             <button
-              type="submit"
-              className="w-full bg-gray-800 text-white font-semibold py-3 rounded-xl hover:bg-gray-900 transition-all"
-            >
-              Sign Up
-            </button>
+            type="submit"
+            className="w-full bg-gray-800 text-white font-semibold py-3 rounded-xl hover:bg-gray-900 transition-all flex items-center justify-center"
+            disabled={signupLoading}
+          >
+            {signupLoading ? (
+              <div className="flex items-center gap-2">
+                <Slab size={20} color="#fff" />
+                <span>Signing up...</span>
+              </div>
+            ) : (
+              "Signup"
+            )}
+          </button>
           </form>
         )}
 
