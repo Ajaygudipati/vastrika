@@ -4,6 +4,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
+const clientId = "YOUR_GOOGLE_CLIENT_ID";
+
+<GoogleOAuthProvider clientId={clientId}>
+  <App />
+</GoogleOAuthProvider>
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

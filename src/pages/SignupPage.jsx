@@ -6,7 +6,8 @@ import axios from 'axios';
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Slab } from "react-loading-indicators"; // ✅ Importing Slab loader
 
-
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 const SignupHeader = () => {
   return (
     <div className="w-full px-6 py-4 bg-white shadow-sm border-b border-gray-200 fixed top-0 z-40">
@@ -18,6 +19,7 @@ const SignupHeader = () => {
     </div>
   );
 };
+
 
 const SignupPage = () => {
   const [needlePosition, setNeedlePosition] = useState({ x: 0, y: 0 });
@@ -32,6 +34,20 @@ const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [signupLoading, setSignupLoading] = useState(false);
+
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+useEffect(() => {
+  const handleMouseMove = (event) => {
+    setMousePos({ x: event.clientX, y: event.clientY });
+  };
+
+  window.addEventListener("mousemove", handleMouseMove);
+  return () => {
+    window.removeEventListener("mousemove", handleMouseMove);
+  };
+}, []);
+
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -97,14 +113,10 @@ const handleSubmit = async (e) => {
         alt="Needle"
         className="needle-follow"
         style={{
-          position: "fixed",
-          top: needlePosition.y,
-          left: needlePosition.x,
-          width: "40px",
-          height: "auto",
-          pointerEvents: "none",
-          zIndex: 50,
-          transform: "translate(-50%, -50%)",
+          left: `${mousePos.x}px`,
+            top: `${mousePos.y}px`,
+            transform: "translate(-50%, -50%)",
+            transition: "transform 0.1s linear",
         }}
       />
 
@@ -229,7 +241,7 @@ const handleSubmit = async (e) => {
             </div>
 
             {/* OAuth Options */}
-            <div className="space-y-4">
+           {/* <div className="space-y-4">
               <button className="w-full flex items-center justify-center border border-gray-300 py-3 rounded-xl hover:bg-gray-100 transition-all">
                 <img src="https://img.icons8.com/ios-filled/24/google-logo.png" alt="Google" className="mr-3" />
                 Continue with Google
@@ -238,10 +250,10 @@ const handleSubmit = async (e) => {
                 <img src="https://img.icons8.com/ios-filled/24/mac-os.png" alt="Apple" className="mr-3" />
                 Continue with Apple
               </button>
-            </div>
+            </div> */}
 
             {/* Footer */}
-            <p className="text-sm text-gray-500 mt-10 text-center">
+            <p className="text-sm text-gray-500  text-center">
               Already have an account?{" "}
               <a href="/login" className="text-gray-800 font-semibold hover:underline">
                 Login

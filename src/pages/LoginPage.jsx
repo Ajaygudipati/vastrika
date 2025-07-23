@@ -4,8 +4,9 @@ import needleImg from "../needle.png"; // Make sure this is in `src/needle.png`
 import "../styles/FloatingTailorIconsLogin.css";
 import { useNavigate } from "react-router-dom"; // ✅ imported for navigation
 import { Slab } from "react-loading-indicators"; // ✅ Importing Slab loader
-
-
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {signInWithPopup, GoogleAuthProvider } from 'firebase/auth'; // ✅ added Google login imports
 
 const LoginHeader = () => {
   return (
@@ -83,6 +84,37 @@ const LoginPage = () => {
     setLoginLoading(false); // ✅ stop loading if error
   }
 };
+
+// ✅ Google login logic
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      const name = user.displayName;
+      const email = user.email;
+      const photo = user.photoURL;
+
+    // ✅ Save to localStorage or context (your choice)
+   localStorage.setItem("vastrikaUser", JSON.stringify({
+  name: result.user.displayName,
+  email: result.user.email,
+  photo: result.user.photoURL,
+  isGoogleUser: true,
+}));
+      // Optional: send user.email to your backend to check registration
+      // For now, just store and redirect
+      localStorage.setItem("user", JSON.stringify(user));
+      setSuccessMsg("Google login successful!");
+      setTimeout(() => {
+        navigate("/homepage");
+      }, 1000);
+    } catch (error) {
+      console.error("Google login error:", error);
+      setErrorMsg("Google login failed. Try again.");
+    }
+  };
   
 
   useEffect(() => {
@@ -200,7 +232,7 @@ const LoginPage = () => {
         <div className="space-y-4">
           <button
             type="button"
-            onClick={() => window.location.href = "https://mail.google.com"}
+            onClick={handleGoogleLogin} // ✅ Google login handler
             className="w-full flex items-center justify-center border border-gray-300 py-3 rounded-xl hover:bg-gray-100 transition-all"
           >
             <img

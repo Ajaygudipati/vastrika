@@ -5,19 +5,44 @@ import "aos/dist/aos.css";
 import "../FloatingTailorIcons.css"; // adjust path if needed
 import '../styles/CustomScrollbar.css';
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 
 function HomePage() {
   const [user, setUser] = useState(null);
+   const navigate = useNavigate();
+
+/*useEffect(() => {
+  if (!window.UnicornStudio) {
+    const script = document.createElement("script");
+    script.src =
+      "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
+    script.onload = () => {
+      if (!window.UnicornStudio.isInitialized) {
+        window.UnicornStudio.init();
+        window.UnicornStudio.isInitialized = true;
+      }
+    };
+    document.body.appendChild(script);
+  } else if (!window.UnicornStudio.isInitialized) {
+    window.UnicornStudio.init();
+    window.UnicornStudio.isInitialized = true;
+  }
+}, []);*/
+
+
+
+
 
 useEffect(() => {
-  const storedUser = localStorage.getItem("user");
+  const storedUser = localStorage.getItem("vastrikaUser");
 
   // Check that storedUser is not null, not the string "undefined", and valid JSON
   if (storedUser && storedUser !== "undefined") {
     try {
-      const user = JSON.parse(storedUser); // ✅ Safely parse
-      setUser(user); // ✅ Set the parsed object
+      const parsedUser = JSON.parse(storedUser); // ✅ Safely parse
+      setUser(parsedUser); // ✅ Set the parsed object
     } catch (err) {
       console.error("Error parsing stored user from localStorage:", err);
       setUser(null); // Optionally clear invalid user
@@ -26,6 +51,7 @@ useEffect(() => {
     setUser(null); // Nothing in localStorage or it's invalid
   }
 }, []);
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -83,40 +109,41 @@ useEffect(() => {
   <a href="#footer" className="hover:text-pink-600 font-bold transition">Contact</a>
 
   {user ? (
-    <div className="relative inline-block">
-      <span
-        className="text-gray-700 font-bold cursor-pointer hover:text-pink-600 transition"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {user.name}
-      </span>
-
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md z-50">
-          <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">
-            View Profile
-          </a>
-          <button
-            onClick={() => {
-              localStorage.removeItem("user");
-              setUser(null);
-              window.location.reload();
-            }}
-            className="w-full text-left px-4 py-2 hover:bg-gray-100"
-          >
-            Logout
-          </button>
-        </div>
-      )}
-    </div>
-  ) : (
-    <a
-      href="/login"
-      className="bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
+  <div className="relative inline-block">
+    <span
+      className="text-gray-700 font-bold cursor-pointer hover:text-pink-600 transition"
+      onClick={() => setIsOpen(!isOpen)}
     >
-      Login
-    </a>
-  )}
+      {user.name}
+    </span>
+
+    {isOpen && (
+      <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md z-50">
+        <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">
+          View Profile
+        </a>
+        <button
+          onClick={() => {
+            localStorage.removeItem("vastrikaUser"); // ✅ Updated key
+            setUser(null);
+            window.location.reload();
+          }}
+          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+        >
+          Logout
+        </button>
+      </div>
+    )}
+  </div>
+) : (
+  <button
+    onClick={() => navigate("/login")}
+    className="block bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
+  >
+    Login
+  </button>
+)}
+
 </nav>
 
 {/* Mobile Dropdown Nav - Visible only on small screens */}
@@ -155,7 +182,7 @@ useEffect(() => {
                   </div>
       </header>
 
-      <main className="pt-20">
+    <main className="pt-5">
         <div id="top"></div>
 
         {/* Hero Section */}
@@ -187,37 +214,37 @@ useEffect(() => {
     {/* Floating Tailoring Icons */}
     <img
       src="/Assets/scissors.png"
-      className="floating-icon absolute w-[18%] top-[-5%] left-[50%]"
+      className="floating-icon absolute w-[18%] top-[-5%] left-[45%]"
       alt="Scissors"
     />
     <img
       src="/Assets/threads.png"
-      className="floating-icon absolute w-[18%] top-[20%] left-[100%]"
+      className="floating-icon absolute w-[18%] top-[20%] left-[95%]"
       alt="Thread Spool"
     />
     <img
       src="/Assets/tape.png"
-      className="floating-icon absolute w-[20%] top-[25%] left-[-5%]"
+      className="floating-icon absolute w-[20%] top-[25%] left-[0%]"
       alt="Measuring Tape"
     />
     <img
       src="/Assets/button.png"
-      className="floating-icon absolute w-[18%] top-[65%] left-[98%]"
+      className="floating-icon absolute w-[18%] top-[65%] left-[93%]"
       alt="Shirt Button"
     />
     <img
       src="/Assets/sewing.png"
-      className="floating-icon absolute w-[20%] top-[40%] left-[50%]"
+      className="floating-icon absolute w-[20%] top-[40%] left-[45%]"
       alt="Sewing Machine"
     />
     <img
       src="/Assets/dress.png"
-      className="floating-icon absolute w-[20%] top-[85%] left-[50%]"
+      className="floating-icon absolute w-[20%] top-[85%] left-[45%]"
       alt="Dress"
     />
     <img
       src="/Assets/bobbin.png"
-      className="floating-icon absolute w-[18%] top-[68%] left-[-5%]"
+      className="floating-icon absolute w-[18%] top-[68%] left-[0%]"
       alt="Bobbin"
     />
 
