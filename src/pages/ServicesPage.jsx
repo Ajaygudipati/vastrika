@@ -3,15 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Slab } from "react-loading-indicators";
 
 const ServicesPage = () => {
   const navigate = useNavigate();
   const services = ["Blouses", "Dresses", "Skirts", "Frocks", "Tops & Pants", "Sarees", "Kids", "Alteration"];
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("vastrikaUser")));
   const [isOpen, setIsOpen] = useState(false);
-
+  const [loginLoading, setLoginLoading] = useState(false);
   const images = ['/Assets/girl1.jpg','/Assets/girl3.jpg','/Assets/girl4.jpg','/Assets/girl2.jpg'];
   const [currentImage, setCurrentImage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    window.scrollTo(0, 0); // <-- Important: scroll to top on page mount
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); // simulate loading (1 second)
+
+    return () => clearTimeout(timer);
+  }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage(prev => (prev + 1) % images.length);
@@ -49,7 +59,23 @@ const ServicesPage = () => {
   }, []);
 
   return (
+    
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-50 font-montserrat text-gray-800">
+  return (
+    <>
+      {loading && (
+        <div className="fixed inset-0 z-50 bg-white flex items-center justify-center">
+          <Slab size={50} color="#000" text="Loading services..." textColor="#000" />
+        </div>
+      )}
+
+      {/* 👇 Actual Services Page Content */}
+      <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}>
+        <h1 className="text-4xl font-bold text-center mt-10">Our Tailoring Services</h1>
+        {/* ... rest of your services content/cards */}
+      </div>
+    </>
+  );
       <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
         <div className="text-center py-3 border-b border-gray-200">
           <h1
@@ -118,7 +144,7 @@ const ServicesPage = () => {
         </div>
       </header>
 
-      <main className="pt-36 px-6 max-w-8xl mx-auto">
+      <main className="pt-[30px] px-6 max-w-8xl mx-auto">
         <div className="relative overflow-hidden w-full max-w-[1440px] h-[550px] mx-auto mb-16 rounded-xl shadow-lg">
           <AnimatePresence mode="wait">
             <motion.img
@@ -176,7 +202,32 @@ const ServicesPage = () => {
           ))}
         </div>
       </main>
-
+{/* WhatsApp Button */}
+        <a
+          href="https://wa.me/919182984259"
+          className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all z-50"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Chat on WhatsApp"
+        >
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.52 3.48A11.76 11.76 0 0012 0C5.37 0 0 5.38 0 12a11.8 11.8 0 001.63 6.01L0 24l6.33-1.66A11.85 11.85 0 0012 24c6.63 0 12-5.38 12-12 0-3.19-1.24-6.17-3.48-8.52zM12 22.06c-1.84 0-3.64-.5-5.2-1.44l-.37-.22-3.76.98.99-3.66-.24-.38A10.02 10.02 0 012 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10.06-10 10.06zm5.02-7.85c-.28-.14-1.65-.82-1.9-.91-.26-.1-.44-.14-.63.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.37-.83-.74-1.39-1.66-1.56-1.94-.17-.28-.02-.43.13-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.1-.19.05-.36-.02-.5-.07-.14-.63-1.52-.86-2.1-.23-.57-.46-.5-.63-.5-.16 0-.36-.02-.55-.02s-.5.07-.76.36c-.26.28-1 1-1 2.43 0 1.43 1.02 2.81 1.17 3.01.14.2 2.01 3.07 4.89 4.3.68.29 1.2.46 1.61.58.67.21 1.27.18 1.74.11.53-.08 1.65-.67 1.88-1.31.23-.64.23-1.2.16-1.31-.08-.1-.25-.17-.53-.3z" />
+          </svg>
+        </a>
+        {/* Instagram Button (above WhatsApp) */}
+<a
+  href="https://instagram.com"
+  className="fixed bottom-24 right-6 bg-gradient-to-br from-yellow-400 via-pink-500 to-purple-600 hover:brightness-110 text-white p-4 rounded-full shadow-lg transition-all z-50"
+  target="_blank"
+  rel="noopener noreferrer"
+  title="Instagram"
+>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+    alt="Instagram"
+    className="w-6 h-6"
+  />
+</a>
       <footer className="bg-slate-100 text-gray-700 py-10 px-6 mt-20">
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div>
@@ -194,8 +245,8 @@ const ServicesPage = () => {
           </div>
           <div>
             <h4 className="font-semibold mb-2">Contact Us</h4>
-            <p className="text-sm">Phone: +91 98765 43210</p>
-            <p className="text-sm">Email: hello@vastrika.in</p>
+            <p className="text-sm">Phone: +91 9182984259</p>
+            <p className="text-sm">Email: vastrikain@gmail.com</p>
           </div>
           <div>
             <h4 className="font-semibold mb-2">Follow Us</h4>
@@ -203,7 +254,7 @@ const ServicesPage = () => {
               <a href="https://instagram.com" target="_blank" rel="noreferrer">
                 <img src="https://img.icons8.com/color/24/instagram-new--v1.png" alt="Instagram" />
               </a>
-              <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer">
+              <a href="https://wa.me/919182984259" target="_blank" rel="noreferrer">
                 <img src="https://img.icons8.com/color/24/whatsapp--v1.png" alt="WhatsApp" />
               </a>
             </div>

@@ -6,7 +6,7 @@ import "../FloatingTailorIcons.css"; // adjust path if needed
 import '../styles/CustomScrollbar.css';
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
+import { Slab } from "react-loading-indicators";
 
 
 function HomePage() {
@@ -73,6 +73,7 @@ useEffect(() => {
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-50 text-gray-800 font-montserrat">
+      
 
       {/* Header Navigation */}
         <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
@@ -388,11 +389,9 @@ useEffect(() => {
     </Link>
   </section>
 )}
-
-
         {/* WhatsApp Button */}
         <a
-          href="https://wa.me/919876543210"
+          href="https://wa.me/919182984259"
           className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all z-50"
           target="_blank"
           rel="noopener noreferrer"
@@ -440,8 +439,8 @@ useEffect(() => {
             </div>
             <div>
               <h4 className="font-semibold mb-2">Contact Us</h4>
-              <p className="text-sm">Phone: +91 98765 43210</p>
-              <p className="text-sm">Email: hello@vastrika.in</p>
+              <p className="text-sm">Phone: +91 9182984259</p>
+              <p className="text-sm">Email: vastrikain@gmail.com</p>
             </div>
             <div>
               <h4 className="font-semibold mb-2">Follow Us</h4>
@@ -449,14 +448,14 @@ useEffect(() => {
                 <a href="https://instagram.com" target="_blank" rel="noreferrer">
                   <img src="https://img.icons8.com/color/24/instagram-new--v1.png" alt="Instagram" />
                 </a>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer">
+                <a href="https://wa.me/919182984259" target="_blank" rel="noreferrer">
                   <img src="https://img.icons8.com/color/24/whatsapp--v1.png" alt="WhatsApp" />
                 </a>
               </div>
             </div>
           </div>
           <div className="text-center text-xs text-gray-500 mt-10">
-            &copy; {new Date().getFullYear()} Vastrika. All rights reserved.
+            &copy; {new Date().getFullYear()} Vastrika. All rights reserved. Made with ❤️ by Vastrika.
           </div>
         </footer>
       </main>
