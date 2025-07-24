@@ -32,9 +32,6 @@ function HomePage() {
 }, []);*/
 
 
-
-
-
 useEffect(() => {
   const storedUser = localStorage.getItem("vastrikaUser");
 
@@ -51,8 +48,6 @@ useEffect(() => {
     setUser(null); // Nothing in localStorage or it's invalid
   }
 }, []);
-
-
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   useEffect(() => {
@@ -207,70 +202,70 @@ useEffect(() => {
           </div>
 
           {/* Right Image */}
-{/* Right Image Section */}
-<div className="mt-12 md:mt-0 md:ml-10 z-10" data-aos="zoom-in">
-  <div className="relative w-[280px] sm:w-[320px] md:w-[420px] h-[380px] sm:h-[420px]">
+          {/* Right Image Section */}
+          <div className="mt-12 md:mt-0 md:ml-10 z-10" data-aos="zoom-in">
+            <div className="relative w-[280px] sm:w-[320px] md:w-[420px] h-[380px] sm:h-[420px]">
 
-    {/* Floating Tailoring Icons */}
-    <img
-      src="/Assets/scissors.png"
-      className="floating-icon absolute w-[18%] top-[-5%] left-[45%]"
-      alt="Scissors"
-    />
-    <img
-      src="/Assets/threads.png"
-      className="floating-icon absolute w-[18%] top-[20%] left-[95%]"
-      alt="Thread Spool"
-    />
-    <img
-      src="/Assets/tape.png"
-      className="floating-icon absolute w-[20%] top-[25%] left-[0%]"
-      alt="Measuring Tape"
-    />
-    <img
-      src="/Assets/button.png"
-      className="floating-icon absolute w-[18%] top-[65%] left-[93%]"
-      alt="Shirt Button"
-    />
-    <img
-      src="/Assets/sewing.png"
-      className="floating-icon absolute w-[20%] top-[40%] left-[45%]"
-      alt="Sewing Machine"
-    />
-    <img
-      src="/Assets/dress.png"
-      className="floating-icon absolute w-[20%] top-[85%] left-[45%]"
-      alt="Dress"
-    />
-    <img
-      src="/Assets/bobbin.png"
-      className="floating-icon absolute w-[18%] top-[68%] left-[0%]"
-      alt="Bobbin"
-    />
+              {/* Floating Tailoring Icons */}
+              <img
+                src="/Assets/scissors.png"
+                className="floating-icon absolute w-[18%] top-[-5%] left-[45%]"
+                alt="Scissors"
+              />
+              <img
+                src="/Assets/threads.png"
+                className="floating-icon absolute w-[18%] top-[20%] left-[95%]"
+                alt="Thread Spool"
+              />
+              <img
+                src="/Assets/tape.png"
+                className="floating-icon absolute w-[20%] top-[25%] left-[0%]"
+                alt="Measuring Tape"
+              />
+              <img
+                src="/Assets/button.png"
+                className="floating-icon absolute w-[18%] top-[65%] left-[93%]"
+                alt="Shirt Button"
+              />
+              <img
+                src="/Assets/sewing.png"
+                className="floating-icon absolute w-[20%] top-[40%] left-[45%]"
+                alt="Sewing Machine"
+              />
+              <img
+                src="/Assets/dress.png"
+                className="floating-icon absolute w-[20%] top-[85%] left-[45%]"
+                alt="Dress"
+              />
+              <img
+                src="/Assets/bobbin.png"
+                className="floating-icon absolute w-[18%] top-[68%] left-[0%]"
+                alt="Bobbin"
+              />
 
-  </div>
-</div>
+            </div>
+          </div>
 
 
         </section>
-{/* About Us Section */}
-<section
-  id="about"
-  data-aos="fade-up"
-  data-aos-duration="1000"
-  data-aos-easing="ease-in-out"
-  className="bg-white py-20 px-6 md:px-12 text-center"
->
-  <div className="max-w-4xl mx-auto">
-    <h2 className="text-3xl font-bold text-gray-800 mb-6">About Us</h2>
-    <p className="text-gray-600 text-lg leading-relaxed">
-      <span className="font-semibold text-gray-800">Vastrika</span> is a premium doorstep tailoring service dedicated to women’s fashion. We believe that every outfit tells a story — your story. From everyday blouses to elegant frocks, our expert tailors ensure your garments are not only stitched to perfection but crafted with emotion and attention to detail.
-    </p>
-    <p className="text-gray-600 text-lg mt-4 leading-relaxed">
-      We offer free doorstep pickup & delivery, consultation on design choices, and seamless communication to bring your dream outfit to life. With Vastrika, you don’t need to step out to get the perfect fit — we bring the boutique experience to your home.
-    </p>
-  </div>
-</section>
+        {/* About Us Section */}
+        <section
+          id="about"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+          className="bg-white py-20 px-6 md:px-12 text-center"
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">About Us</h2>
+            <p className="text-gray-600 text-lg leading-relaxed">
+              <span className="font-semibold text-gray-800">Vastrika</span> is a premium doorstep tailoring service dedicated to women’s fashion. We believe that every outfit tells a story — your story. From everyday blouses to elegant frocks, our expert tailors ensure your garments are not only stitched to perfection but crafted with emotion and attention to detail.
+            </p>
+            <p className="text-gray-600 text-lg mt-4 leading-relaxed">
+              We offer free doorstep pickup & delivery, consultation on design choices, and seamless communication to bring your dream outfit to life. With Vastrika, you don’t need to step out to get the perfect fit — we bring the boutique experience to your home.
+            </p>
+          </div>
+        </section>
         {/* How It Works Section */}
         <section id="howitworks"
           data-aos="fade-up"
@@ -363,43 +358,25 @@ useEffect(() => {
         {/* Booking Section */}
         {user ? (
   // 👇 Show Full Booking Form if user is logged in
-  <section id="book" data-aos="fade-up" className="bg-white py-20 px-6 md:px-12">
-    <div className="max-w-3xl mx-auto bg-slate-100 p-10 rounded-3xl shadow-md">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Book a Stitching Request</h2>
-      <form className="grid grid-cols-1 gap-6">
-        <input type="text" placeholder="Full Name" className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700" />
-        <input type="tel" placeholder="Phone Number" className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700" />
-        <select className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700">
-          <option>Blouse Stitching</option>
-          <option>Long Frock</option>
-          <option>Skirt</option>
-          <option>Alteration</option>
-          <option>Others</option>
-        </select>
-        <input
-          type="url"
-          placeholder="Paste reference link (Instagram/Pinterest)"
-          className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700"
-        />
-        <label className="block">
-          <span className="text-gray-700 font-medium mb-1 block">Upload Reference Image</span>
-          <input
-            type="file"
-            accept="image/*"
-            className="mt-1 block w-full text-sm text-gray-700
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-lg file:border-0
-              file:text-sm file:font-semibold
-              file:bg-gray-800 file:text-white
-              hover:file:bg-gray-900
-              cursor-pointer"
-          />
-        </label>
-        <textarea rows="4" placeholder="Mention color, style, inspirations..." className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-gray-700"></textarea>
-        <button type="submit" className="bg-gray-800 text-white font-semibold py-3 px-6 rounded-xl hover:bg-gray-900 transition-all">Submit Request</button>
-      </form>
-    </div>
-  </section>
+<section id="book" data-aos="fade-up" className="bg-white py-20 px-6 md:px-12">
+  <div className="max-w-3xl mx-auto bg-slate-100 p-10 rounded-3xl shadow-md text-center">
+    <h2 className="text-3xl font-bold text-gray-800 mb-6">Book a Stitching Request</h2>
+    <p className="text-gray-600 mb-6">
+      Click below to explore and book our stitching services tailored to your needs.
+    </p>
+    <button
+  onClick={() => {
+    navigate("/services");
+    setTimeout(() => window.scrollTo(0, 0), 50);
+  }}
+  className="bg-gray-800 text-white font-semibold py-3 px-8 rounded-xl hover:bg-gray-900 transition-all"
+>
+  Book a Stitch
+</button>
+
+  </div>
+</section>
+
 ) : (
   // 👇 If not logged in, show button to login
   <section id="book" data-aos="fade-up" className="bg-white py-20 px-6 md:px-12 text-center">
