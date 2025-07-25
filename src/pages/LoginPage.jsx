@@ -30,7 +30,7 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(true);
   const [loginLoading, setLoginLoading] = useState(false);
 
-  
+
   const navigate = useNavigate(); // ✅ useNavigate hook
 
   const handleSubmit = async (e) => {
@@ -65,15 +65,22 @@ const LoginPage = () => {
     }
 
     if (response.ok) {
-      setSuccessMsg("Login successful!");
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      
-      setTimeout(() => {
-        setLoginLoading(false);
-        navigate("/homepage");
-      }, 1000);
-    } else {
+        setSuccessMsg("Login successful!");
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("vastrikaUser", JSON.stringify({
+          name: data.user.name,
+          email: data.user.email,
+          photo: data.user.photo || "", // optional
+          isGoogleUser: false,
+        }));
+
+        setTimeout(() => {
+          setLoginLoading(false);
+          navigate("/homepage");
+        }, 1000);
+      }
+
+    else {
       setErrorMsg(data.message || "Login failed.");
        setSuccessMsg("");
       setLoginLoading(false); // ✅ stop loading if error
