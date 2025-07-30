@@ -9,31 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { Slab } from "react-loading-indicators";
 import { ChevronDown, LogOut, User } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-
+import SocialMediaPopup from "../components/SocialMediaPopup";
+import BrandScroller from "../components/BrandScroller";
+import ServiceStepsTimeline from "../components/ServiceStepsTimeline";
 
 
 function HomePage() {
   const [user, setUser] = useState(null);
    const navigate = useNavigate();
-
-/*useEffect(() => {
-  if (!window.UnicornStudio) {
-    const script = document.createElement("script");
-    script.src =
-      "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
-    script.onload = () => {
-      if (!window.UnicornStudio.isInitialized) {
-        window.UnicornStudio.init();
-        window.UnicornStudio.isInitialized = true;
-      }
-    };
-    document.body.appendChild(script);
-  } else if (!window.UnicornStudio.isInitialized) {
-    window.UnicornStudio.init();
-    window.UnicornStudio.isInitialized = true;
-  }
-}, []);*/
-
 
 useEffect(() => {
   const storedUser = localStorage.getItem("vastrikaUser");
@@ -76,187 +59,210 @@ useEffect(() => {
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-50 text-gray-800 font-montserrat">
-      {/* Header Navigation */}
-        <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
-            <div className="relative max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                    <a
-            href="#top"
-            className="text-2xl font-bold text-gray-900 hover:text-pink-600 transition"
-          >
-            Vastrika
-          </a>
-          {/* Toggle button for small screens */}
-<div className="md:hidden">
-  <button
-    onClick={() => setShowDropdown(!showDropdown)}
-    className="text-gray-800 focus:outline-none"
-  >
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  </button>
+      <SocialMediaPopup />
+      {/* Desktop View - Sticky Left Timeline */}
+<div className="hidden lg:fixed lg:top-[30%] lg:left-4 lg:z-50 lg:flex lg:flex-col items-start space-y-3 font-zeyada text-black text-[18px] pointer-events-none select-none">
+  <div className="flex flex-col items-start">
+    <h2 className="text-2xl font-bold underline decoration-2 underline-offset-4 mb-4 text-gray-800">
+      How we work...
+    </h2>
+    <span className="whitespace-normal max-w-[200px] leading-snug">Book a Stitch</span>
+    <span className="text-xl ml-2">↓</span>
+  </div>
+  <div className="flex flex-col items-start">
+    <span className="whitespace-normal max-w-[200px] leading-snug">We collect fabric, measurements & preferences</span>
+    <span className="text-xl ml-2">↓</span>
+  </div>
+  <div className="flex flex-col items-start">
+    <span className="whitespace-normal max-w-[200px] leading-snug">Our expert tailors craft your perfect fit</span>
+    <span className="text-xl ml-2">↓</span>
+  </div>
+  <div className="flex flex-col items-start">
+    <span className="whitespace-normal max-w-[200px] leading-snug">We deliver your elegance to your doorstep</span>
+  </div>
 </div>
 
-{/* Desktop Nav */}
-<nav className="hidden md:flex items-center space-x-6 text-sm text-gray-700 font-medium relative">
-  <a href="#about" className="hover:text-pink-600 font-bold transition">About Us</a>
-  <a href="#howitworks" className="hover:text-pink-600 font-bold transition">How It Works</a>
-  <a href="#services" className="hover:text-pink-600 font-bold transition">Services</a>
-  <a href="#book" className="hover:text-pink-600 font-bold transition">Book Now</a>
-  <a href="#footer" className="hover:text-pink-600 font-bold transition">Contact</a>
 
-  {user ? (
-  <div className="relative inline-block">
-    <span
-      className="text-gray-700 font-bold cursor-pointer hover:text-pink-600 transition"
-      onClick={() => setIsOpen(!isOpen)}
+      <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        
+  {/* Top Centered Logo */}
+  <div className="text-center py-4 border-b border-gray-200">
+    <h1
+      className="text-3xl font-extrabold tracking-wide text-gray-900 cursor-pointer"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >
-      {user.name}
-    </span>
-
-    {isOpen && (
-      <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md z-50">
-        <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">
-          View Profile
-        </a>
-        <button
-          onClick={() => {
-            localStorage.removeItem("vastrikaUser"); // ✅ Updated key
-            setUser(null);
-            window.location.reload();
-          }}
-          className="w-full text-left px-4 py-2 hover:bg-gray-100"
-        >
-          Logout
-        </button>
-      </div>
-    )}
+      Vastrika
+    </h1>
   </div>
-) : (
-  <button
-    onClick={() => navigate("/login")}
-    className="block bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
-  >
-    Login
-  </button>
-)}
 
-</nav>
+  {/* Bottom Navigation Row */}
+  <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+    {/* Left Navigation Links */}
+    <nav className="hidden md:flex items-center space-x-6 text-sm text-gray-700 font-medium">
+      <a href="#about" className="hover:text-pink-600 font-bold transition">About Us</a>
+      <a href="#howitworks" className="hover:text-pink-600 font-bold transition">How It Works</a>
+      <a href="#services" className="hover:text-pink-600 font-bold transition">Services</a>
+      <a href="#book" className="hover:text-pink-600 font-bold transition">Book Now</a>
+      <a href="#footer" className="hover:text-pink-600 font-bold transition">Contact</a>
+    </nav>
 
-{/* Mobile Dropdown Nav - Visible only on small screens */}
-{showDropdown && (
-  <div className="md:hidden absolute right-4 top-full mt-2 bg-white shadow-lg rounded-lg p-4 z-50 space-y-2 text-sm">
-    <a href="#about" className="block hover:text-pink-600 font-semibold">About Us</a>
-    <a href="#howitworks" className="block hover:text-pink-600 font-semibold">How It Works</a>
-    <a href="#services" className="block hover:text-pink-600 font-semibold">Services</a>
-    <a href="#book" className="block hover:text-pink-600 font-semibold">Book Now</a>
-    <a href="#footer" className="block hover:text-pink-600 font-semibold">Contact</a>
-
-    {user ? (
-      <div className="space-y-1">
-        <a href="/profile" className="block hover:text-pink-600">View Profile</a>
-        <button
-          onClick={() => {
-            localStorage.removeItem("user");
-            setUser(null);
-            window.location.reload();
-          }}
-          className="block w-full text-left hover:text-pink-600"
-        >
-          Logout
-        </button>
-      </div>
-    ) : (
-      <a
-        href="/login"
-        className="block bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
-      >
-        Login
-      </a>
-    )}
-  </div>
-)}
-                  </div>
-      </header>
-
-    <main className="pt-5">
-        <div id="top"></div>
-
-        {/* Hero Section */}
-        <section
-          data-aos="fade-down"
-          className="relative py-24 px-6 md:px-20 flex flex-col md:flex-row items-center justify-between overflow-hidden gap-8"
-        >
-          {/* Left Text */}
-          <div className="max-w-xl z-10 text-center md:text-left">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Vastrika
-            </h1>
-            <p className="mt-4 text-lg md:text-xl text-gray-700">
-              Premium women’s tailoring at your doorstep. Elegant fits, hand-finished with love.
-            </p>
-            <a href="#book">
-  <button className="mt-8 bg-gray-800 text-white px-6 py-3 rounded-full text-lg hover:bg-gray-900 transition-all shadow-md">
-    Book a Stitch
-  </button>
-</a>
-
-          </div>
-
-          {/* Right Image */}
-          {/* Right Image Section */}
-          <div className="mt-12 md:mt-0 md:ml-10 z-10" data-aos="zoom-in">
-            <div className="relative w-[280px] sm:w-[320px] md:w-[420px] h-[380px] sm:h-[420px]">
-
-              {/* Floating Tailoring Icons */}
-              <img
-                src="/Assets/scissors.png"
-                className="floating-icon absolute w-[18%] top-[-5%] left-[45%]"
-                alt="Scissors"
-              />
-              <img
-                src="/Assets/threads.png"
-                className="floating-icon absolute w-[18%] top-[20%] left-[95%]"
-                alt="Thread Spool"
-              />
-              <img
-                src="/Assets/tape.png"
-                className="floating-icon absolute w-[20%] top-[25%] left-[0%]"
-                alt="Measuring Tape"
-              />
-              <img
-                src="/Assets/button.png"
-                className="floating-icon absolute w-[18%] top-[65%] left-[93%]"
-                alt="Shirt Button"
-              />
-              <img
-                src="/Assets/sewing.png"
-                className="floating-icon absolute w-[20%] top-[40%] left-[45%]"
-                alt="Sewing Machine"
-              />
-              <img
-                src="/Assets/dress.png"
-                className="floating-icon absolute w-[20%] top-[85%] left-[45%]"
-                alt="Dress"
-              />
-              <img
-                src="/Assets/bobbin.png"
-                className="floating-icon absolute w-[18%] top-[68%] left-[0%]"
-                alt="Bobbin"
-              />
-
+    {/* Right Side Login/Profile Dropdown */}
+    <div className="flex items-center gap-4">
+      {user ? (
+        <div className="relative inline-block">
+          <span
+            className="text-gray-700 font-bold cursor-pointer hover:text-pink-600 transition"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {user.name}
+          </span>
+          {isOpen && (
+            <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-md z-50">
+              <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">View Profile</a>
+              <button
+                onClick={() => {
+                  localStorage.removeItem("vastrikaUser");
+                  setUser(null);
+                  window.location.reload();
+                }}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100"
+              >
+                Logout
+              </button>
             </div>
+          )}
+        </div>
+      ) : (
+        <button
+          onClick={() => navigate("/login")}
+          className="block bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
+        >
+          Login
+        </button>
+      )}
+    </div>
+  </div>
+
+  {/* Mobile Menu (unchanged) */}
+  <div className="md:hidden px-4 pb-4">
+    <button
+      onClick={() => setShowDropdown(!showDropdown)}
+      className="text-gray-800 focus:outline-none"
+    >
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+    {showDropdown && (
+      <div className="mt-2 bg-white shadow-lg rounded-lg p-4 z-50 space-y-2 text-sm">
+        <a href="#about" className="block hover:text-pink-600 font-semibold">About Us</a>
+        <a href="#howitworks" className="block hover:text-pink-600 font-semibold">How It Works</a>
+        <a href="#services" className="block hover:text-pink-600 font-semibold">Services</a>
+        <a href="#book" className="block hover:text-pink-600 font-semibold">Book Now</a>
+        <a href="#footer" className="block hover:text-pink-600 font-semibold">Contact</a>
+        {user ? (
+          <div className="space-y-1">
+            <a href="/profile" className="block hover:text-pink-600">View Profile</a>
+            <button
+              onClick={() => {
+                localStorage.removeItem("vastrikaUser");
+                setUser(null);
+                window.location.reload();
+              }}
+              className="block w-full text-left hover:text-pink-600"
+            >
+              Logout
+            </button>
           </div>
+        ) : (
+          <a
+            href="/login"
+            className="block bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition"
+          >
+            Login
+          </a>
+        )}
+      </div>
+    )}
+  </div>
+</header>
 
 
-        </section>
+<main className="pt-[140px]">
+  <div id="top"></div>
+
+  {/* Hero Section */}
+<section
+  data-aos="fade-down"
+  className="relative py-24 px-6 md:px-20 flex flex-col items-center justify-center overflow-hidden text-center"
+  style={{
+    backgroundImage: `url("../Assets/bg1.jpg")`, // ✅ Your image here
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat", // 🔁 added this to prevent repeating, just in case
+  }}
+>
+  {/* Overlay for tint */}
+  <div className="absolute inset-0 bg-black/40 z-0" />
+
+  {/* Main Content */}
+  <div className="z-10 max-w-3xl">
+    <h1 className="text-6xl md:text-7xl font-extrabold tracking-wider text-white hero-3d">
+      Vastrika
+    </h1>
+
+    <p className="mt-5 text-lg md:text-2xl text-white font-medium drop-shadow-md">
+      <span className="typewriter">Premium women’s tailoring at your doorstep.</span>
+    </p>
+  </div>
+</section>
+
+
+
+  {/* Custom CSS */}
+  <style>{`
+    .typewriter {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #fff;
+      animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: white }
+    }
+
+    .hero-3d {
+      color: #fff;
+      text-shadow:
+        0 1px 0 #ccc,
+        0 2px 0 #bbb,
+        0 3px 0 #aaa,
+        0 4px 0 #999,
+        0 5px 0 #888,
+        0 6px 1px rgba(0,0,0,0.1),
+        0 0 5px rgba(255,255,255,0.2),
+        0 1px 3px rgba(0,0,0,0.3),
+        0 3px 5px rgba(0,0,0,0.2),
+        0 5px 10px rgba(0,0,0,0.25),
+        0 10px 10px rgba(0,0,0,0.2),
+        0 20px 20px rgba(0,0,0,0.15);
+    }
+  `}</style>
         {/* About Us Section */}
         <section
           id="about"
           data-aos="fade-up"
           data-aos-duration="1000"
           data-aos-easing="ease-in-out"
-          className="bg-white py-20 px-6 md:px-12 text-center"
+          className="bg-white py-20 px-6 md:px-12 text-center scroll-mt-[140px]"
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">About Us</h2>
@@ -271,7 +277,7 @@ useEffect(() => {
         {/* How It Works Section */}
         <section id="howitworks"
           data-aos="fade-up"
-          className="py-20 px-6 md:px-12 bg-white text-center"
+           className="py-20 px-6 md:px-12 bg-white text-center scroll-mt-[140px]"
         >
           <h2 className="text-3xl font-bold text-gray-800 mb-12">How It Works</h2>
 
@@ -310,7 +316,7 @@ useEffect(() => {
         <section
           id="services"
           data-aos="fade-up"
-          className="bg-gradient-to-b from-white to-slate-50 py-20 px-6 md:px-12 text-center"
+          className="bg-gradient-to-b from-white to-slate-50 py-20 px-6 md:px-12 text-center scroll-mt-[140px]"
         >
           <h2 className="text-3xl font-bold text-gray-800 mb-12">Our Services</h2>
 
@@ -371,7 +377,7 @@ useEffect(() => {
     navigate("/services");
     setTimeout(() => window.scrollTo(0, 0), 50);
   }}
-  className="bg-gray-800 text-white font-semibold py-3 px-8 rounded-xl hover:bg-gray-900 transition-all"
+  className="bg-black py-20 px-6 md:px-12 text-center scroll-mt-[140px] bg-gray-800 text-white font-semibold py-3 px-8 rounded-xl hover:bg-gray-900 transition-all"
 >
   Book a Stitch
 </button>
@@ -390,44 +396,30 @@ useEffect(() => {
     </Link>
   </section>
 )}
-        {/* WhatsApp Button */}
-        <a
-          href="https://wa.me/919182984259"
-          className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all z-50"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Chat on WhatsApp"
-        >
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20.52 3.48A11.76 11.76 0 0012 0C5.37 0 0 5.38 0 12a11.8 11.8 0 001.63 6.01L0 24l6.33-1.66A11.85 11.85 0 0012 24c6.63 0 12-5.38 12-12 0-3.19-1.24-6.17-3.48-8.52zM12 22.06c-1.84 0-3.64-.5-5.2-1.44l-.37-.22-3.76.98.99-3.66-.24-.38A10.02 10.02 0 012 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10.06-10 10.06zm5.02-7.85c-.28-.14-1.65-.82-1.9-.91-.26-.1-.44-.14-.63.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.37-.83-.74-1.39-1.66-1.56-1.94-.17-.28-.02-.43.13-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.1-.19.05-.36-.02-.5-.07-.14-.63-1.52-.86-2.1-.23-.57-.46-.5-.63-.5-.16 0-.36-.02-.55-.02s-.5.07-.76.36c-.26.28-1 1-1 2.43 0 1.43 1.02 2.81 1.17 3.01.14.2 2.01 3.07 4.89 4.3.68.29 1.2.46 1.61.58.67.21 1.27.18 1.74.11.53-.08 1.65-.67 1.88-1.31.23-.64.23-1.2.16-1.31-.08-.1-.25-.17-.53-.3z" />
-          </svg>
-        </a>
-        {/* Instagram Button (above WhatsApp) */}
-<a
-  href="https://instagram.com"
-  className="fixed bottom-24 right-6 bg-gradient-to-br from-yellow-400 via-pink-500 to-purple-600 hover:brightness-110 text-white p-4 rounded-full shadow-lg transition-all z-50"
-  target="_blank"
-  rel="noopener noreferrer"
-  title="Instagram"
->
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-    alt="Instagram"
-    className="w-6 h-6"
-  />
-</a>
+{/* Mobile View - Bottom Timeline */}
+<div className="block lg:hidden w-full px-6 py-10 bg-gray-50 mt-12 font-zeyada text-black text-[18px]">
+  <h2 className="text-2xl font-bold underline decoration-2 underline-offset-4 mb-4 text-center">
+    How we work...
+  </h2>
+  <div className="flex flex-col gap-3 items-center text-center leading-snug">
+    <div>🧵 Book a Stitch</div>
+    <div>⬇️</div>
+    <div>📏 We collect fabric, measurements & preferences</div>
+    <div>⬇️</div>
+    <div>🧶 Our expert tailors craft your perfect fit</div>
+    <div>⬇️</div>
+    <div>🚚 We deliver your elegance to your doorstep</div>
+  </div>
+</div>
 
 
         {/* Footer */}
-        <footer
-          data-aos="flip-left"
-          id="footer"
-          className="bg-slate-100 text-gray-700 py-10 px-6 mt-20"
-        >
+        <BrandScroller />
+        <footer className="bg-slate-100 text-gray-700 py-10 px-6 mt-20">
           <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Vastrika</h3>
-              <p className="text-sm">Elegant tailoring service for women. Blouses, frocks, alterations & more — delivered at your doorstep.</p>
+              <p className="text-sm">Elegant tailoring service for women...</p>
             </div>
             <div>
               <h4 className="font-semibold mb-2">Services</h4>
@@ -460,6 +452,21 @@ useEffect(() => {
           </div>
         </footer>
       </main>
+{/* 🔥 Sticky Glassmorphic “Book a Stitch” Button */}
+<div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-30 xl:z-50">
+  <div className="backdrop-blur-xl bg-transparent border border-white/20 rounded-2xl px-6 py-4 flex flex-col items-center shadow-xl hover:scale-105 transition-transform duration-300">
+    <span className="text-black text-sm tracking-wider mb-1 font-semibold">
+      Vastrika
+    </span>
+    <Link to="/services">
+      <button className="text-black text-lg font-semibold px-8 py-3 rounded-full bg-transparent hover:bg-white/10 border border-white/30 shadow-md backdrop-blur-xl transition-all duration-300">
+        Book a Stitch
+      </button>
+    </Link>
+  </div>
+</div>
+
+
       {/* Needle Follows Mouse */}
         <img
         src="/Assets/needle.png"
