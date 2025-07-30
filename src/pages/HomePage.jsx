@@ -211,9 +211,10 @@ useEffect(() => {
       Vastrika
     </h1>
 
-    <p className="mt-5 text-lg md:text-2xl text-white font-medium drop-shadow-md">
-      <span className="typewriter">Premium women’s tailoring at your doorstep.</span>
-    </p>
+    <p className="mt-5 text-lg md:text-2xl text-white font-medium drop-shadow-md break-words text-center max-w-[90%] mx-auto">
+  <span className="typewriter">Premium women’s tailoring at your doorstep.</span>
+</p>
+
   </div>
 </section>
 
@@ -415,42 +416,49 @@ useEffect(() => {
 
         {/* Footer */}
         <BrandScroller />
-        <footer className="bg-slate-100 text-gray-700 py-10 px-6 mt-20">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Vastrika</h3>
-              <p className="text-sm">Elegant tailoring service for women...</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">Services</h4>
-              <ul className="text-sm space-y-1">
-                <li>Blouse Stitching</li>
-                <li>Long Frocks</li>
-                <li>Skirts</li>
-                <li>Alterations</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">Contact Us</h4>
-              <p className="text-sm">Phone: +91 9182984259</p>
-              <p className="text-sm">Email: vastrikain@gmail.com</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">Follow Us</h4>
-              <div className="flex space-x-4 mt-2">
-                <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                  <img src="https://img.icons8.com/color/24/instagram-new--v1.png" alt="Instagram" />
-                </a>
-                <a href="https://wa.me/919182984259" target="_blank" rel="noreferrer">
-                  <img src="https://img.icons8.com/color/24/whatsapp--v1.png" alt="WhatsApp" />
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="text-center text-xs text-gray-500 mt-10">
-            &copy; {new Date().getFullYear()} Vastrika. All rights reserved. Made with ❤️ by Vastrika.
-          </div>
-        </footer>
+<footer className="relative bg-slate-100 text-gray-700 py-10 px-6 mt-20 overflow-hidden">
+{/* 🔷 Watermark text */}
+<div className="absolute inset-0 flex items-end justify-center pb-[100px] pointer-events-none select-none opacity-10 text-[6vw] font-extrabold text-gray-500 whitespace-nowrap px-4 z-0">
+  An Aiónios Product...
+</div>
+  {/* 🔶 Footer content */}
+  <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <div>
+      <h3 className="text-2xl font-bold text-gray-900 mb-2">Vastrika</h3>
+      <p className="text-sm">Elegant tailoring service for women...</p>
+    </div>
+    <div>
+      <h4 className="font-semibold mb-2">Services</h4>
+      <ul className="text-sm space-y-1">
+        <li>Blouse Stitching</li>
+        <li>Long Frocks</li>
+        <li>Skirts</li>
+        <li>Alterations</li>
+      </ul>
+    </div>
+    <div>
+      <h4 className="font-semibold mb-2">Contact Us</h4>
+      <p className="text-sm">Phone: +91 9182984259</p>
+      <p className="text-sm">Email: vastrikain@gmail.com</p>
+    </div>
+    <div>
+      <h4 className="font-semibold mb-2">Follow Us</h4>
+      <div className="flex space-x-4 mt-2">
+        <a href="https://instagram.com" target="_blank" rel="noreferrer">
+          <img src="https://img.icons8.com/color/24/instagram-new--v1.png" alt="Instagram" />
+        </a>
+        <a href="https://wa.me/919182984259" target="_blank" rel="noreferrer">
+          <img src="https://img.icons8.com/color/24/whatsapp--v1.png" alt="WhatsApp" />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div className="relative z-10 text-center text-xs text-gray-500 mt-10">
+    &copy; {new Date().getFullYear()} Vastrika. All rights reserved. Made with ❤️ by Vastrika.
+  </div>
+</footer>
+
       </main>
 {/* 🔥 Sticky Glassmorphic “Book a Stitch” Button */}
 <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-30 xl:z-50">

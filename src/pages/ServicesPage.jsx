@@ -212,42 +212,38 @@ const ServicesPage = () => {
 
         
             <BrandScroller />
-        <footer className="bg-slate-100 text-gray-700 py-10 px-6 mt-20">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Vastrika</h3>
-              <p className="text-sm">Elegant tailoring service for women...</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">Services</h4>
-              <ul className="text-sm space-y-1">
-                <li>Blouse Stitching</li>
-                <li>Long Frocks</li>
-                <li>Skirts</li>
-                <li>Alterations</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">Contact Us</h4>
-              <p className="text-sm">Phone: +91 9182984259</p>
-              <p className="text-sm">Email: vastrikain@gmail.com</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">Follow Us</h4>
-              <div className="flex space-x-4 mt-2">
-                <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                  <img src="https://img.icons8.com/color/24/instagram-new--v1.png" alt="Instagram" />
-                </a>
-                <a href="https://wa.me/919182984259" target="_blank" rel="noreferrer">
-                  <img src="https://img.icons8.com/color/24/whatsapp--v1.png" alt="WhatsApp" />
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="text-center text-xs text-gray-500 mt-10">
-            &copy; {new Date().getFullYear()} Vastrika. All rights reserved. Made with ❤️ by Vastrika.
-          </div>
-        </footer>
+        <footer className="bg-slate-100 text-gray-700 py-10 px-6 mt-20 relative overflow-hidden">
+  <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+    <div>
+      <h3 className="text-2xl font-bold text-gray-900 mb-2">Vastrika</h3>
+      <p className="text-sm">Elegant tailoring service for women...</p>
+    </div>
+    <div>
+      <h4 className="font-semibold mb-2">Services</h4>
+      <ul className="text-sm space-y-1">
+        <li>Blouse Stitching</li>
+        <li>Long Frocks</li>
+        <li>Skirts</li>
+        <li>Alterations</li>
+      </ul>
+    </div>
+    <div>
+      <h4 className="font-semibold mb-2">Contact Us</h4>
+      <p className="text-sm">Phone: +91 9182984259</p>
+      <p className="text-sm">Email: vastrikain@gmail.com</p>
+    </div>
+  </div>
+
+  <div className="text-center text-xs text-gray-500 mt-10 relative z-10">
+    &copy; {new Date().getFullYear()} Vastrika. All rights reserved. Made with ❤️ by Vastrika.
+  </div>
+
+  {/* 🌊 Watermark Overlay for Footer */}
+  <div className="absolute inset-0 flex items-end justify-center pb-6 pointer-events-none select-none opacity-10 text-[50px] sm:text-[80px] md:text-[100px] font-extrabold text-gray-400 whitespace-nowrap tracking-widest z-0">
+    An Aiónios Product...
+  </div>
+</footer>
+
       </div>
     </div>
   );
