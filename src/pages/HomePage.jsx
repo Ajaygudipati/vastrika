@@ -315,54 +315,79 @@ useEffect(() => {
 
         {/* Services Section */}
         <section
-          id="services"
-          data-aos="fade-up"
-          className="bg-gradient-to-b from-white to-slate-50 py-20 px-6 md:px-12 text-center scroll-mt-[140px]"
-        >
-          <h2 className="text-3xl font-bold text-gray-800 mb-12">Our Services</h2>
+  id="services"
+  data-aos="fade-up"
+  className="relative bg-gradient-to-b from-white to-slate-50 py-24 px-6 md:px-12 text-center scroll-mt-[140px]"
+>
+  {/* Glow background effect */}
+  <div className="absolute inset-0 pointer-events-none z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-100 via-white/40 to-transparent blur-3xl opacity-40"></div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {
-            [
-              {
-                title: "Blouses",
-                desc: "Designer blouses stitched perfectly with your custom fit.",
-                img: "https://img.icons8.com/color/48/needle.png",
-              },
-              {
-                title: "Long Frocks",
-                desc: "Flowing frocks tailored just the way you dreamt.",
-                img: "/Assets/dress-frock.png"
-              },
-              {
-                title: "Skirts",
-                desc: "Classic and trendy skirts, stitched with precision.",
-                img: "https://img.icons8.com/color/48/skirt.png",
-              },
-              {
-                title: "Alterations",
-                desc: "Quick fixes or complete reshaping — we do it all.",
-                img: "https://img.icons8.com/color/48/sewing-machine.png",
-              }
-            ]
-            
-            .map((service, index) => (
-              <div
-                key={index}
-                data-aos="fade-up"
-                className="bg-white p-6 rounded-2xl shadow hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
-              >
-                <img
-                  src={service.img}
-                  alt={service.title}
-                  className="mx-auto mb-4 w-12 h-auto"
-                />
-                <h3 className="text-xl font-semibold text-gray-800">{service.title}</h3>
-                <p className="text-gray-500 text-sm mt-2">{service.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+  <h2 className="text-4xl font-extrabold text-gray-800 mb-16 relative z-10">
+    Our Services
+  </h2>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-7xl mx-auto relative z-10">
+    {[
+      {
+        title: "Blouses",
+        desc: "Designer blouses stitched perfectly with your custom fit.",
+        img: "https://img.icons8.com/color/48/needle.png",
+      },
+      {
+        title: "Long Frocks",
+        desc: "Flowing frocks tailored just the way you dreamt.",
+        img: "/Assets/dress-frock.png",
+      },
+      {
+        title: "Skirts",
+        desc: "Classic and trendy skirts, stitched with precision.",
+        img: "https://img.icons8.com/color/48/skirt.png",
+      },
+      {
+        title: "Alterations",
+        desc: "Quick fixes or complete reshaping — we do it all.",
+        img: "https://img.icons8.com/color/48/sewing-machine.png",
+      },
+      {
+        title: "Kidswear",
+        desc: "Cute & comfy kidswear stitched with extra love.",
+        img: "https://static.thenounproject.com/png/3629590-200.png",
+      },
+      {
+        title: "Tops & Pants",
+        desc: "Trendy tops and perfectly fit pants for every occasion.",
+        img: "https://img.icons8.com/color/48/clothes.png",
+      },
+      {
+        title: "Embroidery Work",
+        desc: "Beautiful, intricate thread work for premium finishes.",
+        img: "https://img.icons8.com/color/48/embroidery.png",
+      },
+      {
+        title: "Custom Stitching",
+        desc: "Your dream design? We'll bring it to life.",
+        img: "https://img.icons8.com/emoji/48/thread.png",
+      },
+    ].map((service, index) => (
+      <div
+        key={index}
+        data-aos="fade-up"
+        data-aos-delay={index * 100}
+        className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-transform hover:-translate-y-1 hover:scale-[1.02] duration-300 cursor-pointer group"
+      >
+        <img
+          src={service.img}
+          alt={service.title}
+          className="mx-auto mb-4 w-12 h-auto group-hover:scale-110 transition-transform duration-200"
+        />
+        <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+          {service.title}
+        </h3>
+        <p className="text-gray-600 text-sm mt-2 dark:text-gray-300">{service.desc}</p>
+      </div>
+    ))}
+  </div>
+</section>
 
         {/* Booking Section */}
         {user ? (

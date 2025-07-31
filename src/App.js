@@ -15,6 +15,7 @@ import SkirtsPage from './pages/SkirtsPage';
 import FrocksPage from './pages/FrocksPage';
 import TopsAndPantsPage from "./pages/TopsAndPantsPage";
 import ProfilePage from "./pages/ProfilePage";
+import SareesPage from './pages/SareesPage';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext"; // ✅ Import your AuthProvider
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/services/skirts" element={<SkirtsPage />} />
           <Route path="/services/frocks" element={<FrocksPage />} />
           <Route path="/services/tops-and-pants" element={<TopsAndPantsPage />} />
+          <Route path="/services/sarees" element={<SareesPage />} />
           {/* Add more routes as needed */}
         </Routes>
       </Router>

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import FeedbackSidebar from "../components/FeedbackSidebar";
+import SocialMediaPopup from "../components/SocialMediaPopup";
+
 
 const frockData = [
   {
@@ -57,6 +59,7 @@ const FrocksPage = () => {
   return (
     <div className="min-h-screen bg-white font-[Montserrat] text-gray-800 relative">
       <FeedbackSidebar />
+      <SocialMediaPopup />
 
       <div className={`${showForm ? "blur-md pointer-events-none" : ""} transition duration-300`}>
         {/* Header */}
@@ -104,7 +107,6 @@ const FrocksPage = () => {
   </div>
 </div>
 
-
         {/* Category Tabs */}
         <div className="flex space-x-3 px-4 overflow-x-auto mb-6">
           {categories.map((cat) => (
@@ -139,7 +141,7 @@ const FrocksPage = () => {
 {/* Sticky Bottom Booking Bar */}
 <div className="fixed bottom-4 left-0 w-full px-4 z-40">
   <div className="backdrop-blur-md bg-white/30 border border-white/40 text-black rounded-full flex justify-between items-center px-6 py-3 shadow-lg max-w-xl mx-auto transition duration-300">
-    <span className="font-medium text-sm md:text-base">👗 Customize Your Blouse</span>
+    <span className="font-medium text-sm md:text-base">👗 Customize Your Frocks</span>
     <button
       onClick={handleToggle}
       className="bg-black text-white px-4 py-1 rounded-full hover:bg-gray-800 transition duration-300"

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import SocialMediaPopup from "../components/SocialMediaPopup";
 
 const skirtData = [
   {
@@ -38,11 +39,11 @@ const skirtData = [
     title: "Embroidered Skirt",
     price: 1299,
     image: "/Assets/embroidered1.png",
-    category: "Bridal",
+    category: "Party Wear",
   },
 ];
 
-const categories = ["All", "Bridal", "Party Wear", "Office", "Casual"];
+const categories = ["All", "Party Wear", "Office", "Casual"];
 
 const SkirtsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -64,6 +65,7 @@ const SkirtsPage = () => {
   return (
     <div className="min-h-screen bg-white font-[Montserrat] text-gray-800 relative">
         <FeedbackSidebar />
+        <SocialMediaPopup />
       <div className={`${showForm ? "blur-md pointer-events-none" : ""} transition duration-300`}>
 
         {/* Sticky Header */}
@@ -97,7 +99,7 @@ const SkirtsPage = () => {
           <div className="relative z-20 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl p-8 text-center overflow-hidden animate-fade-in-up">
             <h2 className="text-4xl font-extrabold text-white drop-shadow-md">
               <span className="relative inline-block animate-pulse bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400">
-                ✨ Custom Skirts
+                ✨Skirts
               </span>
             </h2>
             <p className="text-lg mt-3 text-gray-100 font-medium">

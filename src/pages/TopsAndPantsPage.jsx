@@ -3,34 +3,36 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import FeedbackSidebar from "../components/FeedbackSidebar";
+import SocialMediaPopup from "../components/SocialMediaPopup";
+
 
 const topsAndPantsData = [
   {
     id: 1,
     title: "Formal Top",
     price: 599,
-    image: "/Assets/formal-top.jpg",
+    image: "/Assets/formaltop1.jpg",
     category: "Tops",
   },
   {
     id: 2,
     title: "Casual Top",
     price: 499,
-    image: "/Assets/casual-top.jpg",
+    image: "/Assets/casualtops1.jpg",
     category: "Tops",
   },
   {
     id: 3,
     title: "Formal Pants",
     price: 899,
-    image: "/Assets/formal-pants.jpg",
+    image: "/Assets/formalpants1.jpg",
     category: "Pants",
   },
   {
     id: 4,
     title: "Casual Pants",
     price: 699,
-    image: "/Assets/casual-pants.jpg",
+    image: "/Assets/casualpants1.png",
     category: "Pants",
   },
 ];
@@ -59,6 +61,7 @@ const TopsAndPantsPage = () => {
   return (
     <div className="min-h-screen bg-white font-[Montserrat] text-gray-800 relative">
       <FeedbackSidebar />
+      <SocialMediaPopup />
       <div className={`${showForm ? "blur-md pointer-events-none" : ""} transition duration-300`}>
         <header className="sticky top-0 bg-white z-50 border-b border-gray-200">
           <div className="text-center py-4">
@@ -89,7 +92,7 @@ const TopsAndPantsPage = () => {
           <div className="relative z-20 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl p-8 text-center overflow-hidden animate-fade-in-up">
             <h2 className="text-4xl font-extrabold text-white drop-shadow-md relative z-10">
               <span className="relative inline-block animate-pulse bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400">
-                ✨ Custom Tops & Pants
+                ✨Tops & Pants
               </span>
             </h2>
             <p className="text-lg mt-3 text-gray-100 font-medium z-10 relative translate-x-2">

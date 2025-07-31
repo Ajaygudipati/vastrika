@@ -107,7 +107,7 @@ const BlousesPage = () => {
     {/* Title Glow Animation */}
     <h2 className="text-4xl font-extrabold text-white drop-shadow-md relative z-10">
       <span className="relative inline-block animate-pulse bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400">
-        ✨ Custom Blouses
+        ✨Blouses
       </span>
     </h2>
 
